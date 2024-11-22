@@ -1,20 +1,23 @@
-from importlib.metadata import files
 from tkinter import*
 from tkinter import filedialog as fd
+from tkinter import  messagebox as mb
 from tkinter import ttk
 import  requests
-from bottle import response
 
 
 def upload():
-    filepath=fd.askopenfilename() # путь к файлу
-    if filepath:
-        files={"file": open(filepath, "rb")}
-        response=requests.post("https://www.file.io/", files=files)
-        if response.status_code==200:
-            link=response.json()["link"]
-            entry.insert(0, link)
-
+    try:
+        filepath=fd.askopenfilename() # путь к файлу
+        if filepath:
+            with open(filepath, "rb") as f:
+                files={"file": f}
+                response=requests.post("https://file.io", files=files)
+                response.raise_for_status()# для проверки ошибок
+                link=response.json()["link"]
+                entry.delete(0, END)
+                entry.insert(0, link)
+    except Exception as e:
+        mb.showerror("ошибка", f"произошла ошибка:{e}")
 
 window=Tk()
 window.title("сохранение файлов в облаке")
