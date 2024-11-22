@@ -35,9 +35,9 @@ def upload():
                 pyperclip.copy(link)
                 save_history(filepath, link)
                 mb.showinfo("ссыдка скопирована", f"ссылка {link} успешно скопирована в буфер обмена")
-
     except Exception as e:
         mb.showerror("ошибка", f"произошла ошибка:{e}")
+
 
 window=Tk()
 window.title("сохранение файлов в облаке")
@@ -50,7 +50,3 @@ entry=ttk.Entry()
 entry.pack()
 
 window.mainloop()
-
-
-
-
