@@ -2,7 +2,7 @@ import json
 import os
 
 
-history_file="test_save_history.json"
+history_file="test_file_io_save_history.json"
 
 def save_history(file_path, link):
     history=[]
@@ -14,21 +14,21 @@ def save_history(file_path, link):
         json.dump(history,f,indent=4)
 
 
-def test_save_history():
+def test_file_io_save_history():
     test_file_path="test_file.txt"
     test_download_link="https://file.io/ghjhkj"
 
 
     save_history(test_file_path, test_download_link)
 
-    with open("test_save_history.json") as f:
+    with open("test_file_io_save_history.json") as f:
         history=json.load(f)
         assert len(history)==1
         assert history[0]["file_path"]==test_file_path
         assert history[0]["download_link"] == test_download_link
 
-    os.remove("test_save_hystory.json")
+    os.remove("test_file_io_save_history.json")
 
-test_save_history()
+test_file_io_save_history()
 
 
